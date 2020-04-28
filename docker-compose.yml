@@ -1,0 +1,23 @@
+version: "3"
+services: 
+  website:
+    image: php:apache
+    environment: 
+      - USERNAME=toto
+      - PASSWORD=python
+    volumes:
+      - "./website:/var/www/html"
+    depends_on:
+      - api
+    ports:
+      - "8089:80"
+    links:
+      - api:api    
+
+  api:
+    build: simple_api
+    container_name: exam_api
+    ports:
+        - 5000:5000
+    volumes:
+        - "./simple_api/data:/data"
